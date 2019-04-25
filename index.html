@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Geography Quiz</title> 
+  <link href="stylerr.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+  
+  <div id="app">
+    <h1>{{ quiz.title }}</h1>
+    <div v-for="(question, index) in quiz.questions">
+      <div v-show="index === questionIndex">
+        <h2>{{ question.text }}</h2>
+        <ol>
+          <li v-for="response in question.responses">
+            <label>
+              <input type="radio" 
+                     v-bind:value="response.correct" 
+                     v-bind:name="index" 
+                     v-model="userResponses[index]"> {{response.text}}
+            </label>
+          </li>
+        </ol>
+        <button v-on:click="next">
+          Next
+        </button>
+      </div>
+    </div>
+    <div v-show="questionIndex === quiz.questions.length">
+      <p>
+        Your Final Marks: {{ score() }} / {{ quiz.questions.length }}
+      </p>
+    </div>
+  </div>
+  
+
+  <script src="https://vuejs.org/js/vue.js"></script>
+  <script>
+    window.onload=function(){
+     
+      var quiz = {
+        title: 'Geography Quiz',
+        questions: [
+          {
+            text: "Question 1: Which country first produced bananas?",
+            responses: [
+                    {text:'Jamaica'},
+                    {text:'India',correct: true},
+                    {text:'South Africa'},
+                    {text:'Mexico'}, 
+            ]
+          }, {
+            text: "Question 2: Which country was previously known as Rhodesia?",
+            responses: [
+                     {text:'Namibia'},
+                     {text:'Malawi'},
+                     {text:'Zimbabwe',correct: true},
+                     {text:'Lesotho'},
+            ]
+          }, {
+            text: "Question 3: Which country prduces the maximum sugar in the world?",
+            responses: [
+                     {text:'USA'},
+                     {text:'India',correct: true},
+                     {text:'Cuba'},
+                     {text:'Brazil'},  
+            ]
+          }, {
+            text: "Question 4: What is the capital of Moroco?",
+            responses: [
+                     {text:'Muscat'},
+                     {text:'Managua'},
+                     {text:'Ulan Bator'},
+                     {text:'Rabat',correct: true}, 
+            ]
+          }, {
+            text: "Question 5: 'Death Valley' is located in",
+            responses: [
+                     {text:'California US',correct: true},
+                     {text:'Kerala, India'},
+                     {text:'Israel'},
+                     {text:'Saudi Arabia'},  
+            ]
+          }, {
+            text: "Question 6: ...is sometimes referred to as 'the land of white elephants",
+            responses: [
+                     {text:'Tanzania'},
+                     {text:'India'},
+                     {text:'Thailand',correct: true},
+                     {text:'Sri Lanka'},
+            ]
+          }, {
+            text: "Question 7: 90% loss from floods occurs in the...", 
+            responses: [
+                     {text:'Coastal plains'},
+                     {text:'Deccan plateau'},
+                     {text:'North plains',correct: true},
+                     {text:'None of the above'},  
+            ]
+          }, {
+            text: "Question 8: A cataract is a...",
+            responses: [
+                    {text:'Huge waterfall',correct: true},
+                    {text:'Marshy creek'},
+                    {text:'Mountain pass'},
+                    {text:'Currency'},  
+            ]
+          }, {
+            text:"Question 9: Colombo is the capital of",  
+            responses: [
+                    {text:'Japan'},
+                    {text:'China',correct: true},
+                    {text:'Sri Lanka'},
+                    {text:'Thailand'}, 
+            ]
+          }, {
+            text: "Question 10: Cometsare luminous celestial bodies moving around the...",
+            responses: [
+                     {text:'Sun'},
+                     {text:'Moon'},
+                     {text:'Earth',correct: true},
+                     {text:'Jupiter'},  
+            ]
+          }, {
+            text: "Question 11: Commercial fishing is best developed in",
+            responses: [
+                     {text:'China'},
+                     {text:'Japan',correct: true},
+                     {text:'South Korea'},
+                     {text:'Russia'}, 
+            ]
+          }, {
+            text: "Question 12: Congo is situated on the... coast of Africa",
+            responses: [
+                     {text:'North',correct: true},
+                     {text:'South'},
+                     {text:'West'},
+                     {text:'East'},
+            ]
+          }, {
+            text: "Question 13: 'Sick man of Europe' is the nickname for...", 
+            responses: [
+                     {text:'Rome'},
+                     {text:'Turkey',correct: true},
+                     {text:'Italy'},
+                     {text:'Oxford'}, 
+            ]
+          }, {
+            text: "Question 14: Cambodia was earlier known as",
+            responses: [
+                     {text:'Mauritania'},
+                     {text:'Persia'},
+                     {text:'Kampuchea',correct: true},
+                     {text:'None of the above'},  
+          ]
+          }, {
+            text: "Question 15: How many days does the moon take to rotate round the earth?", 
+            responses: [
+                     {text:'26'},
+                     {text:'27',correct: true},
+                     {text:'28'},
+                     {text:'29'},  
+            ]
+          }, {
+            text: "Question 16: Which is tha largest island in the world?",
+            responses: [
+                     {text:'Australia'},
+                     {text:'Greenland',correct: true},
+                     {text:'New Guinea'},
+                     {text:'None of the above'},  
+            ]
+          }, {
+            text: "Question 17: Loti is the currency of...",
+            responses: [
+                     {text:'Burundi'},
+                     {text:'Libya'},
+                     {text:'Sudan'},
+                     {text:'Lesotho',correct: true}, 
+            ]
+          }, {
+            text: "Question 18: Where is Mount Everest located?", 
+            responses: [
+                     {text:'India'},
+                     {text:'China'},
+                     {text:'Nepal',correct: true},
+                     {text:'Bhutan'}, 
+            ]
+          }, {
+            text: "Question 19: What is the shape of the earth's orbit around the sun?",
+            responses: [
+                     {text:'Circular'},
+                     {text:'Hyperbolic'},
+                     {text:'Elliptical',correct: true},
+                     {text:'Parabolic'},  
+            ]
+          },
+           {
+            text: "Question 20: Which of the following countries has the largest area in the world?",
+            responses: [
+                     {text:'Canada'},
+                     {text:'China'},
+                     {text:'USA'},
+                     {text:'Russia',correct: true}, 
+            ]
+          } 
+        ]
+      };
+            
+      new Vue({
+        el: '#app',
+        data: {
+          quiz: quiz,
+        
+          questionIndex: 0,
+          
+          userResponses: Array(quiz.questions.length).fill(false)
+        },
+       
+        methods: {
+         
+          next: function() {
+            this.questionIndex++;
+          },
+         
+          prev: function() {
+            this.questionIndex--;
+          },
+          
+          score: function() {
+            return this.userResponses.filter(function(val) { return val }).length;
+          }
+        }
+      });
+    }
+  </script>
+</body>
